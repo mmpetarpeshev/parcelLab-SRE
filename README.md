@@ -34,26 +34,6 @@ Build and push with the bash script. Example script run with arguments:
 ./build_push.sh --image-name my-app --image-tag v1.0 --registry https://index.docker.io/v1 --username my-docker-username --password my-docker-password --repository my-docker-repo
 ```
 
-Curl commands to test all customer's endpoints:
-
-```
-curl http://localhost:5000/greet/customerA
-```
-
-```
-curl http://localhost:5000/greet/customerB
-```
-
-```
-curl http://localhost:5000/greet/customerC
-```
-
-Simulate error with random wrong customer. For example:
-
-```
-curl http://localhost:5000/greet/customerD
-```
-
 ## Github Actions pipeline.
 
 To repository has a pipeline for automated deployment of the helm charts to minikube on every push in the main branch.  
@@ -77,6 +57,30 @@ The chart could be installed with the following command:
 ```
 helm instal --values charts/parcel-lab/values.yaml parcel-lab ./charts/parcel-lab --dependency-update
 ```
+## Test the application
+
+Curl commands to test all customer's endpoints:
+
+```
+curl http://localhost:5000/greet/customerA
+```
+
+```
+curl http://localhost:5000/greet/customerB
+```
+
+```
+curl http://localhost:5000/greet/customerC
+```
+
+Simulate error with random wrong customer. For example:
+
+```
+curl http://localhost:5000/greet/customerD
+```
+
+Every pipeline run performs test curl request for each customer endpoint and print the result.
+It can be seen under Test Customer A/B/C Endpoint steps.
 
 ## Feature improvements
 1. Pipeline Enhancement: Consider splitting the test steps into a separate pipeline as they expand.
