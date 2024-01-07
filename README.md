@@ -27,12 +27,14 @@ docker run -p 5000:5000 parcel-lab
 
 The parcel-lab python app will be available on http://localhost:5000
 
+Build and push with the bash script.Example script run with arguments:
+
+./build_push.sh --image-name my-app --image-tag v1.0 --registry https://index.docker.io/v1 --username my-docker-username --password my-docker-password --repository my-docker-repo
+
 Curl commands to test all customers endpoints:
 
 curl http://localhost:5000/greet/customerA
-
 curl http://localhost:5000/greet/customerB
-
 curl http://localhost:5000/greet/customerC
 
 Simulate error with random wrong customer.For example:
@@ -64,6 +66,9 @@ The chart could be installed with the following command:
 ```
 
 ## Feature improvements
-1. Split the test steps to seperate pipeline once they become more.
-2. Expose the service with traefik ingress- there is template for it in the chart , but traefik is not deployed to minikube.It requries more work.  
-3. Improve resource conditional creation.
+1. Pipeline Enhancement: Consider splitting the test steps into a separate pipeline as they expand.
+
+2. Traefik Ingress:Explore exposing the service with Traefik Ingress (template available in the chart).
+   Note: Traefik deployment to minikube requires additional work.
+
+3. Resource Creation Enhancement: Improve conditional creation of resources for better resource management.
