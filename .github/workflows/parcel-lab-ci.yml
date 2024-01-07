@@ -1,0 +1,88 @@
+name: ParcelLab Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          install: true
+
+      - name: Log in to dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
+
+      - name: Extract metadata for docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: petarpe6ev/parcel-lab
+          tags: |
+            type=raw,value=latest,enable=${{ endsWith(GitHub.ref, 'main') }}
+            type=raw,value=${{ steps.release.outputs.tag_name }},enable=${{ endsWith(GitHub.ref, 'main') }}
+            type=ref,event=tag
+            type=ref,event=pr
+      
+      - name: Build and push docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@master
+      
+      - uses: azure/setup-helm@v1
+        id: install
+
+      - name: Helm Install for Customer A
+        run: |
+          helm install --values charts/parcel-lab/values.yaml parcel-lab-a ./charts/parcel-lab
+
+      - name: Helm Install for Customer B
+        run: |
+          helm install --values charts/parcel-lab/values.yaml parcel-lab-b ./charts/parcel-lab
+
+      - name: Helm Install for Customer C
+        run: |
+          helm install --values charts/parcel-lab/values.yaml parcel-lab-c ./charts/parcel-lab
+
+      - name: List pods
+        run: |
+          sleep 60
+          kubectl get pods -A
+
+      - name: Print Endpoints
+        run: |
+          echo "Customer A Endpoint: $(minikube service parcel-lab-a --url)"
+          echo "Customer B Endpoint: $(minikube service parcel-lab-b --url)"
+          echo "Customer C Endpoint: $(minikube service parcel-lab-c --url)"
+
+      - name: Test Customer A Endpoint
+        run: |
+          curl -s -L "$(minikube service parcel-lab-a --url)/greet/customerA"
+
+      - name: Test Customer B Endpoint
+        run: |
+          curl -s -L "$(minikube service parcel-lab-b --url)/greet/customerB"
+
+      - name: Test Customer C Endpoint
+        run: |
+          curl -s -L "$(minikube service parcel-lab-c --url)/greet/customerC"
