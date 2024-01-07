@@ -1,9 +1,6 @@
 # parcelLab-SRE
 parcelLab SRE challenge solution
 
-# parcelLab-SRE
-parcelLab SRE challenge solution
-
 The repository contains solutions for all required tasks (minimum and optional ones).  
 
 Minimum requirements:
