@@ -1,0 +1,33 @@
+image:
+  repository: petarpe6ev/parcel-lab
+  tag: "latest"
+  imagePullPolicy: Always
+
+service:
+  port: 5000
+  type: NodePort
+
+ingress:
+  enabled: false
+  hosts:
+    - host: "pacellab.local.com"
+      paths:
+        - path: "/"
+
+serviceAccount:
+  create: false
+
+persistence:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+
+env:
+  "FLASK_APP": 'app.py'
