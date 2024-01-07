@@ -36,7 +36,7 @@ Build and push with the bash script. Example script run with arguments:
 
 ## Github Actions pipeline.
 
-To repository has a pipeline for automated deployment of the helm charts to minikube on every push in the main branch.  
+To repository has a pipeline for automated deployment of the helm chart to Minikube on every push in the main branch.  
 
 https://github.com/mmpetarpeshev/parcelLab-SRE/actions
 
@@ -86,5 +86,5 @@ It can be seen under the Test Customer A/B/C Endpoint steps.
 ## Feature improvements
 1. Pipeline Enhancement: Consider splitting the test steps into a separate pipeline as they expand.
 2. Traefik Ingress: Explore exposing the service with Traefik Ingress (template available in the chart).
-   Note: Traefik deployment to minikube requires additional work.
+   Note: Traefik deployment to Minikube requires additional work.
 3. Resource Creation Enhancement: Improve conditional creation of resources for better resource management.
