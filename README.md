@@ -79,8 +79,9 @@ Simulate error with random wrong customer. For example:
 curl http://localhost:5000/greet/customerD
 ```
 
-Every pipeline run performs test curl request for each customer endpoint and print the result.
-It can be seen under Test Customer A/B/C Endpoint steps.
+Every pipeline run performs a test curl request for each customer endpoint and prints the result.
+
+It can be seen under the Test Customer A/B/C Endpoint steps.
 
 ## Feature improvements
 1. Pipeline Enhancement: Consider splitting the test steps into a separate pipeline as they expand.
