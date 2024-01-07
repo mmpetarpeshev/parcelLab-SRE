@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         id: buildx
@@ -27,14 +27,14 @@ jobs:
 
       - name: Extract metadata for docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v5.5.0
         with:
           images: petarpe6ev/parcel-lab
           tags: |
             type=raw,value=latest,enable=${{ endsWith(GitHub.ref, 'main') }}
       
       - name: Build and push docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           file: ./Dockerfile
@@ -46,7 +46,7 @@ jobs:
         id: minikube
         uses: medyagh/setup-minikube@master
       
-      - uses: azure/setup-helm@v1
+      - uses: azure/setup-helm@v3
         id: install
 
       - name: Helm Install for Customer A
