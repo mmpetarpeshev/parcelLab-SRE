@@ -8,7 +8,7 @@ The repository contains solutions for all required tasks (minimum and optional o
    Choose whatever programming language and framework you think might be the best fit
    Describe or implement the necessary things to ensure “good quality“ for your product
 2. Automated docker build & push process with Github Actions plus deployment with helm to minikube.  
-3. Deploy to local Kubernetes environments like minikube with GH Actions
+3. BASH script for local build and push.
 
 ## Requirements
 - Docker
