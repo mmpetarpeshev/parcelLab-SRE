@@ -36,7 +36,12 @@ Build and push with the bash script. Example script run with arguments:
 
 ## Github Actions pipeline.
 
-To repository has a pipeline for automated deployment of the helm chart to Minikube on every push in the main branch.  
+To repository has a pipeline for automated deployment of the helm chart to Minikube on every push in the main branch.
+
+The pipeline requires two GitHub secrets to be set for the repository. It can be done on a repository or organization level.
+
+- DOCKERHUB_USER (your docker registry user)
+- DOCKERHUB_PASS (your docker registry password)
 
 https://github.com/mmpetarpeshev/parcelLab-SRE/actions
 
